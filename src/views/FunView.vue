@@ -1,20 +1,28 @@
 <script setup>
 import {ref} from 'vue'
-import { useCollection } from 'vuefire';
+import { useCollection} from 'vuefire';
 import { collection} from 'firebase/firestore';
 import { db } from '@/firebase_conf';
+import logButton from '@/components/logButton.vue';
 
 const tests = useCollection(collection(db, 'flash cards'))
 </script>
 
 <template>
-  <div class="cards">
+  <!---<div class="cards">
     <div v-for="test in tests" :key="test.id" class="card">
       <div class="front">{{ test.front }}</div>
       <div class="back">{{ test.back }}</div>
     </div>
+    <RouterLink :to="{ name: 'id', params: { id: test.id } }">TestID< {{test.id}}/RouterLink>
+  </div>-->
+    <logButton/>
+  <div v-for="test in tests" :key="test.id">
+    <li>
+      <RouterLink :to="{ name: 'id', params: { id: test.id } }">TestID {{test.id}}</RouterLink>
+    </li>
   </div>
-</template>
+  </template>
 
 <style scoped>
 .cards {
